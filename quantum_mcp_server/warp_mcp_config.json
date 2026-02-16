@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "quantum-simulator": {
+      "command": "python3",
+      "args": [
+        "/home/stevens/QUANTUM-COMPUTING/quantum_mcp_server/server.py"
+      ],
+      "env": {
+        "PYTHONPATH": "/home/stevens/QUANTUM-COMPUTING/quantum_mcp_server"
+      }
+    }
+  }
+}
