@@ -1,4 +1,5 @@
 """Cirq backend adapter."""
+import math
 import time
 from typing import Dict, Any, List
 import cirq
@@ -51,6 +52,10 @@ class CirqBackend(QuantumBackend):
             elif gate_type == 'swap':
                 circuit.append(cirq.SWAP(qubits[qubit_indices[0]], qubits[qubit_indices[1]]))
             
+            # Controlled-phase gate
+            elif gate_type == 'cp':
+                circuit.append(cirq.CZPowGate(exponent=params[0] / math.pi).on(qubits[qubit_indices[0]], qubits[qubit_indices[1]]))
+
             # Three qubit gates
             elif gate_type in ['ccx', 'toffoli']:
                 circuit.append(cirq.TOFFOLI(qubits[qubit_indices[0]], qubits[qubit_indices[1]], qubits[qubit_indices[2]]))

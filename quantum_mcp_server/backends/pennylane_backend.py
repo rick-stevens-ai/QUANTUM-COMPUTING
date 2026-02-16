@@ -68,6 +68,10 @@ class PennyLaneBackend(QuantumBackend):
                     elif gate_type == 'swap':
                         qml.SWAP(wires=[qubits[0], qubits[1]])
                     
+                    # Controlled-phase gate
+                    elif gate_type == 'cp':
+                        qml.ControlledPhaseShift(params[0], wires=[qubits[0], qubits[1]])
+
                     # Three qubit gates
                     elif gate_type in ['ccx', 'toffoli']:
                         qml.Toffoli(wires=[qubits[0], qubits[1], qubits[2]])

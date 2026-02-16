@@ -17,7 +17,7 @@ class QiskitBackend(QuantumBackend):
     
     def create_circuit(self, num_qubits: int, circuit_def: Dict[str, Any]) -> QuantumCircuit:
         """Create a Qiskit quantum circuit."""
-        qc = QuantumCircuit(num_qubits, num_qubits)
+        qc = QuantumCircuit(num_qubits)
         
         for gate_op in circuit_def.get('gates', []):
             gate_type = gate_op['type'].lower()
@@ -52,6 +52,10 @@ class QiskitBackend(QuantumBackend):
             elif gate_type == 'swap':
                 qc.swap(qubits[0], qubits[1])
             
+            # Controlled-phase gate
+            elif gate_type == 'cp':
+                qc.cp(params[0], qubits[0], qubits[1])
+
             # Three qubit gates
             elif gate_type in ['ccx', 'toffoli']:
                 qc.ccx(qubits[0], qubits[1], qubits[2])
@@ -68,20 +72,21 @@ class QiskitBackend(QuantumBackend):
             start_time = time.time()
             
             # Ensure circuit has measurements
-            if not any(isinstance(instr.operation, type(circuit.measure)) 
-                      for instr in circuit.data if hasattr(instr, 'operation')):
+            has_measurements = circuit.count_ops().get('measure', 0) > 0
+            if not has_measurements:
                 circuit = circuit.copy()
                 circuit.measure_all()
-            
+
             # Run simulation
             job = self.simulator.run(circuit, shots=shots, **kwargs)
             result = job.result()
             counts = result.get_counts()
-            
+
             execution_time = time.time() - start_time
-            
-            # Convert counts to standard format (string keys)
-            formatted_counts = {str(k): int(v) for k, v in counts.items()}
+
+            # Convert counts to standard format with big-endian ordering
+            # Qiskit uses little-endian (rightmost bit = qubit 0), so reverse
+            formatted_counts = {str(k)[::-1]: int(v) for k, v in counts.items()}
             
             # Calculate probabilities
             total_shots = sum(formatted_counts.values())

@@ -16,9 +16,9 @@ A unified FastMCP server providing a standardized interface to 5 major quantum c
 | Backend | Version | Description | Status |
 |---------|---------|-------------|--------|
 | **Qiskit** | 2.3.0 | IBM's quantum SDK with Aer Simulator | ✅ Active |
-| **PennyLane** | 0.44.0 | Quantum ML framework | 🚧 Planned |
-| **Cirq** | 1.6.1 | Google's quantum framework | 🚧 Planned |
-| **PyTKET** | 2.13.0 | Quantinuum's compiler | 🚧 Planned |
+| **PennyLane** | 0.44.0 | Quantum ML framework | ✅ Active |
+| **Cirq** | 1.6.1 | Google's quantum framework | ✅ Active |
+| **PyTKET** | 2.13.0 | Quantinuum's compiler | ✅ Active |
 | **Classiq** | 1.1.0 | High-level algorithm design | 🚧 Planned |
 
 ## Quick Start
@@ -132,6 +132,7 @@ result = mcp.call_tool("execute_multi_backend", {
 ### Multi-Qubit Gates
 - `cx`, `cnot` - Controlled-NOT
 - `cz` - Controlled-Z
+- `cp` - Controlled-Phase (requires params: [angle])
 - `swap` - Swap
 - `ccx`, `toffoli` - Toffoli gate
 
@@ -144,16 +145,16 @@ result = mcp.call_tool("execute_multi_backend", {
 - [x] Basic MCP tools
 - [x] Documentation
 
-### Phase 2: Multi-Backend Support 🚧
-- [ ] PennyLane adapter
-- [ ] Cirq adapter
-- [ ] PyTKET adapter
+### Phase 2: Multi-Backend Support ✅
+- [x] PennyLane adapter
+- [x] Cirq adapter
+- [x] PyTKET adapter
 - [ ] Classiq adapter (with conda env integration)
 
-### Phase 3: Advanced Features 📋
+### Phase 3: Advanced Features 🚧
 - [ ] Circuit optimization
 - [ ] Noise modeling
-- [ ] Advanced algorithms (Grover, Shor, VQE)
+- [x] Advanced algorithms (20 algorithms: Grover, QFT, QPE, VQE, QAOA, etc.)
 - [ ] GPU acceleration
 - [ ] Circuit visualization
 
@@ -309,7 +310,8 @@ For issues specific to:
 
 ---
 
-**Server Status**: 🟢 Active Development  
-**Backend Count**: 1/5 implemented  
-**Test Coverage**: Qiskit only  
-**Last Updated**: February 15, 2026
+**Server Status**: 🟢 Active Development
+**Backend Count**: 4/5 implemented (Qiskit, PennyLane, Cirq, PyTKET)
+**Algorithm Coverage**: 20 algorithms tested across all 4 backends
+**Gate Support**: 14 gates (h, x, y, z, s, t, rx, ry, rz, cx, cz, cp, swap, ccx)
+**Last Updated**: February 16, 2026

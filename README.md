@@ -14,38 +14,59 @@ All 5 frameworks successfully installed and tested:
 
 ## 🚀 Quick Start
 
+### Automated Installation
+```bash
+chmod +x install.sh && ./install.sh
+# Options: --skip-classiq, --dry-run, --help
+```
+
 ### Test All Frameworks
 ```bash
 python3 test_all_frameworks_complete.py
 ```
 
-Expected output: `SUCCESS: All 5 quantum backends ready for MCP server!`
+### Run Top 20 Algorithm Test Suite
+```bash
+python3 quantum_mcp_server/test_top20_algorithms.py
+```
+Tests 20 quantum algorithms across all 4 backends (Qiskit, PennyLane, Cirq, PyTKET) = 80 test combinations.
 
 ### Test Individual Frameworks
 ```bash
-# Python 3.13 frameworks
 python3 test_qiskit.py
 python3 test_pennylane.py
 python3 test_cirq.py
 python3 test_pytket.py
-
-# Classiq (Python 3.12)
-conda run -n classiq-env python test_classiq_simple.py
+conda run -n classiq-env python test_classiq_simple.py  # Classiq (Python 3.12)
 ```
+
+## 🧪 Algorithm Test Suite
+
+The test suite (`quantum_mcp_server/test_top20_algorithms.py`) covers 20 fundamental algorithms:
+
+| # | Algorithm | Category |
+|---|-----------|----------|
+| 1-4 | Deutsch-Jozsa, Bernstein-Vazirani, Simon's | Oracular |
+| 5-6 | Grover's Search (2/3-qubit) | Search |
+| 7-9 | QFT, Inverse QFT, QPE | Fourier |
+| 10-12 | Bell States, GHZ, W State | Entanglement |
+| 13-14 | Teleportation, Superdense Coding | Communication |
+| 15-16 | Bit-Flip / Phase-Flip Error Correction | Error Correction |
+| 17-18 | VQE Ansatz, QAOA MaxCut | Variational |
+| 19 | Quantum Half Adder | Arithmetic |
+| 20 | Trotterized Ising Simulation | Simulation |
 
 ## 📁 Files
 
 ### Documentation
 - `README.md` - This file
 - `installation_summary.md` - Detailed installation documentation
+- `install.sh` - Automated installation script
 
 ### Test Scripts
 - `test_all_frameworks_complete.py` - Complete test suite (all 5 frameworks)
-- `test_all_frameworks.py` - Test suite for first 4 frameworks
-- `test_qiskit.py` - IBM Qiskit test
-- `test_pennylane.py` - Xanadu PennyLane test
-- `test_cirq.py` - Google Cirq test
-- `test_pytket.py` - Quantinuum PyTKET test
+- `quantum_mcp_server/test_top20_algorithms.py` - Top 20 algorithms x 4 backends
+- `test_qiskit.py` / `test_pennylane.py` / `test_cirq.py` / `test_pytket.py` - Individual framework tests
 - `test_classiq_simple.py` - Classiq installation test
 
 ## 🔧 Environment Details

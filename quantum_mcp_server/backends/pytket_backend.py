@@ -1,4 +1,5 @@
 """PyTKET backend adapter."""
+import math
 import time
 from typing import Dict, Any, List
 from pytket import Circuit
@@ -37,12 +38,16 @@ class PyTKETBackend(QuantumBackend):
             elif gate_type == 't':
                 circuit.T(qubits[0])
             elif gate_type == 'rx':
-                circuit.Rx(params[0], qubits[0])
+                circuit.Rx(params[0] / math.pi, qubits[0])
             elif gate_type == 'ry':
-                circuit.Ry(params[0], qubits[0])
+                circuit.Ry(params[0] / math.pi, qubits[0])
             elif gate_type == 'rz':
-                circuit.Rz(params[0], qubits[0])
+                circuit.Rz(params[0] / math.pi, qubits[0])
             
+            # Controlled-phase gate
+            elif gate_type == 'cp':
+                circuit.CU1(params[0] / math.pi, qubits[0], qubits[1])
+
             # Two qubit gates
             elif gate_type in ['cx', 'cnot']:
                 circuit.CX(qubits[0], qubits[1])

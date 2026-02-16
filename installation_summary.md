@@ -1,5 +1,15 @@
 # Quantum Computing Framework Installation Summary
 
+## Quick Install
+
+```bash
+cd /home/stevens/QUANTUM-COMPUTING
+chmod +x install.sh && ./install.sh
+# Options: --skip-classiq, --dry-run, --help
+```
+
+---
+
 ## System Information
 - **Platform**: NVIDIA DGX SPARK GB10
 - **CPU**: ARM aarch64 (Grace: 10x Cortex-X925 + 10x Cortex-A725)
